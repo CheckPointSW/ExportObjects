@@ -20,5 +20,7 @@ Later on, to import these hosts into other R80.10 Management database, you execu
 
 mgmt_cli add host -b hosts.csv
 
+Please refer to [the mgmt_cli tool manual](https://sc1.checkpoint.com/documents/latest/APIs/index.html#cli/mgmt_cli~v1.1) for more information.
+
 ## Development Environment
 The tool is developed using Python language version 2.7.9 and [Check Point API Python SDK.](https://github.com/CheckPoint-APIs-Team/cpapi-python-sdk)
