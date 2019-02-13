@@ -9,7 +9,7 @@ import re
 import subprocess
 import sys
 
-from cp_mgmt_api_python_sdk.lib import APIClient, APIClientArgs, APIClientException, APIException
+from cpapi import APIClient, APIClientArgs, APIClientException, APIException
 
 
 def process_args_and_login(parser=None, client=None, showparameter=None, fields=None):

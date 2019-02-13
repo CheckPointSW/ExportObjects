@@ -6,9 +6,12 @@ This tool can be used for backups, database transfers, testing, and more.
 ## Instructions
 Clone the repository with this command:
 ```git
-git clone --recursive https://github.com/CheckPoint-APIs-Team/ExportObjects
+git clone https://github.com/CheckPoint-APIs-Team/ExportObjects
 ```
-or by clicking the Download ZIP button. In this case, the "cp_mgmt_api_python_sdk" folder will be created empty and you will need to manually download and copy the [Check Point API Python SDK](https://github.com/CheckPoint-APIs-Team/cpapi-python-sdk) content into this folder.
+or by clicking the Download ZIP button. 
+
+Download and install the [Check Point API Python SDK](https://github.com/CheckPointSW/cp_mgmt_api_python_sdk) 
+repository, follow the instructions in the SDK repository.
 
 A typical run of the script to export all hosts will be along the lines of:
 
