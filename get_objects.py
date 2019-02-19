@@ -185,7 +185,7 @@ def get_raw_data(param, payload=None, container_keys="objects", client=None):
         if "total" not in current_res.data or current_res.data["total"] == 0 or current_res.data["to"] == \
                 current_res.data["total"]:
             for key in container_keys:
-                result_data[key] = current_res.data[key] if key in current_res.data else {}
+                result_data[key] = current_res.data[key] if key in current_res.data else []
     lst = sum((result_data[key] for key in container_keys), [])
     return lst
 
@@ -521,7 +521,14 @@ def flat_json_to_csv(jsondata, fields_order, print_column_names=True):
     for i in range(maxlen):
         lst = []
         for key in ordered_keys:
-            lst.append(str(jsondata[key][i]) if (len(jsondata[key]) > i and jsondata[key][i] is not None) else "")
+            var_to_append = ""
+            if len(jsondata[key]) > i and jsondata[key][i] is not None:
+                if isinstance(jsondata[key][i], unicode):
+                    var_to_append = jsondata[key][i].encode("utf-8")
+                else:
+                    # var is int
+                    var_to_append = str(jsondata[key][i])
+            lst.append(var_to_append)
         res.append(lst)
     return res
 
