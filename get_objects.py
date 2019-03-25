@@ -931,9 +931,9 @@ def args_initializer(parser=None, param=None):
     parser.add_argument("-x", "--proxy", required=False, nargs=1, default=[os.getenv('MGMT_CLI_PROXY')],
                         help="Proxy settings.    {user:password@proxy.server:port}\nEnvironment variable: MGMT_CLI_PROXY")
     parser.add_argument("--unsafe", required=False, default=["false"], choices=["true", "false"],
-                        help="UNSAFE! Ignore certificate verification.    {true/false}\nDefault {false}")
+                        help="UNSAFE! Ignore certificate verification.    {true/false}\nDefault {false}", nargs=1)
     parser.add_argument("--unsafe-auto-accept", required=False, default=["false"], choices=["true", "false"],
-                        help="UNSAFE! Auto accept fingerprint during certificate verification.   {true/false}\nDefault {false}")
+                        help="UNSAFE! Auto accept fingerprint during certificate verification.   {true/false}\nDefault {false}", nargs=1)
     return parser.parse_args()
 
 
