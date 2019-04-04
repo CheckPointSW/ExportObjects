@@ -58,16 +58,13 @@ def process_args_and_login(parser=None, client=None, showparameter=None, fields=
         "Got the following login credentials:\n    Username: {0}\n    Password: {1}\n    Session ID: {2}".format(
             username, '*' * len(password) if password else None, session_id))
     if not args.root or args.root[0] == "true":
-        unsafe = (args.unsafe[0] == "true")
-        unsafe_auto_accept = (args.unsafe_auto_accept[0] == "true")
         if not client:
             client = APIClient(APIClientArgs(server=management))
-        if unsafe or (unsafe_auto_accept and validate_fingerprint_without_prompt(client, management,
-                                                                                 auto_accept=unsafe_auto_accept)) or client.check_fingerprint():
+        if client.check_fingerprint():
             login(client, management, domain, username, password, session_id)
         else:
             raise APIClientException(
-                "The server's fingerprint is different than your local record of it. The script cannot operate in this unsecure manner (unless running with --unsafe). Exiting...")
+                "The server's fingerprint is different than your local record of it. The script cannot operate in this unsecure manner. Exiting...")
     else:
         login(client, management, domain, session_id=session_id, username=None, password=None)
     return output_file, output_file_format, user_created, client, args
@@ -87,13 +84,6 @@ def validate_fingerprint_without_prompt(client, server, auto_accept=False, local
     server_fingerprint = client.get_server_fingerprint(server)
     if local_fingerprint.replace(':', '').upper() == server_fingerprint.replace(':', '').upper():
         client.fingerprint = local_fingerprint
-        client.save_fingerprint_to_file(server, client.fingerprint)
-        return True
-    elif auto_accept:
-        print(
-            "Accepting the fingerprint " + server_fingerprint + ".\n Please note that this is unsafe and you may be a victim to a Man-in-the-middle attack.",
-            file=sys.stderr)
-        client.fingerprint = server_fingerprint
         client.save_fingerprint_to_file(server, client.fingerprint)
         return True
     else:
@@ -930,10 +920,6 @@ def args_initializer(parser=None, param=None):
                         help="Path to the debugging log file\nDefault: get_objects.log\nEnvironment variable: MGMT_CLI_LOG_FILE")
     parser.add_argument("-x", "--proxy", required=False, nargs=1, default=[os.getenv('MGMT_CLI_PROXY')],
                         help="Proxy settings.    {user:password@proxy.server:port}\nEnvironment variable: MGMT_CLI_PROXY")
-    parser.add_argument("--unsafe", required=False, default=["false"], choices=["true", "false"],
-                        help="UNSAFE! Ignore certificate verification.    {true/false}\nDefault {false}")
-    parser.add_argument("--unsafe-auto-accept", required=False, default=["false"], choices=["true", "false"],
-                        help="UNSAFE! Auto accept fingerprint during certificate verification.   {true/false}\nDefault {false}")
     return parser.parse_args()
 
 
