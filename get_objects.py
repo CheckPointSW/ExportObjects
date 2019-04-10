@@ -59,7 +59,7 @@ def process_args_and_login(parser=None, client=None, showparameter=None, fields=
             username, '*' * len(password) if password else None, session_id))
     if not args.root or args.root[0] == "true":
         if not client:
-            client = APIClient(APIClientArgs(server=management))
+            client = APIClient(APIClientArgs(server=management, port=args.port[0]))
         if client.check_fingerprint():
             login(client, management, domain, username, password, session_id)
         else:
@@ -382,7 +382,6 @@ def key_matches(key, pattern):
         return True
     return False
 '''
-
 
 def key_matches(key, pattern):
     if pattern:
