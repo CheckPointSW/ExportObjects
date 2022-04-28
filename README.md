@@ -19,7 +19,7 @@ export_hosts.py -m [management server IP] -o hosts.csv
 
 A lot more details can of course be accessed with the '-h' option.
 
-Later on, to import these hosts into other R80.10 Management database, you execute the command mgmt_cli with the batch flag [-b]:
+Later on, to import these hosts into other R80.10 and above Management database, you execute the command mgmt_cli with the batch flag [-b]:
 
 mgmt_cli add host -b hosts.csv
 
